@@ -1,0 +1,27 @@
+{
+    "id": 6508283,
+    "name": "⭐ ReTraY",
+    "author": "DiVaMiKuLov26",
+    "creators": ["DiVaMiKuLov26"],
+    "verifier": "Polygon Donut",
+    "verification": "https://www.youtube.com/watch?v=klLM_3aeXYk",
+    "percentToQualify": 100,
+    "password": "Easy",
+    "records": [
+        {
+            "user": "Polygon Donut",
+            "link": "https://www.youtube.com/watch?v=klLM_3aeXYk",
+            "percent": 100
+        },
+        {
+            "user": "Lol amaZon",
+            "link": "https://www.youtube.com/watch?v=NvCDdEszCuw",
+            "percent": 100
+        },
+        {
+            "user": "Thisisadam",
+            "link": "https://www.youtube.com/watch?v=Py4Jimldojg",
+            "percent": 100
+        }
+    ]
+}

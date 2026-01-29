@@ -52,10 +52,12 @@ export default {
                                     <p>#{{ score.rank }}</p>
                                 </td>
                                 <td class="level">
-                                    <a class="type-label-lg" target="_blank" :href="score.link">{{ score.level }}</a>
+                                    <a class="type-label-lg" target="_blank" :href="score.link">
+                                        {{ score.level }}
+                                    </a>
                                 </td>
-                                <td class="score">
-                                    <p>+{{ localize(score.score) }}</p>
+                                <td class="time">
+                                    <p v-if="score.time">{{ score.time }}</p>
                                 </td>
                             </tr>
                         </table>
@@ -66,21 +68,28 @@ export default {
                                     <p>#{{ score.rank }}</p>
                                 </td>
                                 <td class="level">
-                                    <a class="type-label-lg" target="_blank" :href="score.link">{{ score.level }}</a>
+                                    <a class="type-label-lg" target="_blank" :href="score.link">
+                                        {{ score.level }}
+                                    </a>
+                                </td>
+                                <td class="time">
+                                    <p v-if="score.time">{{ score.time }}</p>
                                 </td>
                                 <td class="score">
                                     <p>+{{ localize(score.score) }}</p>
                                 </td>
                             </tr>
                         </table>
-                        <h2 v-if="entry.progressed.length > 0">Progressed ({{entry.progressed.length}})</h2>
-                        <table class="table">
+                        <h2 v-if="!isPlatformerEntry && entry.progressed.length > 0">
+                            Progressed ({{ entry.progressed.length }})
+                        </h2>
+                        <table v-if="!isPlatformerEntry" class="table">
                             <tr v-for="score in entry.progressed">
                                 <td class="rank">
                                     <p>#{{ score.rank }}</p>
                                 </td>
                                 <td class="level">
-                                    <a class="type-label-lg" target="_blank" :href="score.link">{{ score.percent }}% {{ score.level }}</a>
+                                    <a class="type-label-lg" target="_blank" :href="score.link">{{ score.percent != null ? score.percent + '%' : '' }} {{ score.level }}</a>
                                 </td>
                                 <td class="score">
                                     <p>+{{ localize(score.score) }}</p>
@@ -95,6 +104,10 @@ export default {
     computed: {
         entry() {
             return this.leaderboard[this.selected];
+        },
+        isPlatformerEntry() {
+            // true if ANY completed run has a time field
+            return this.entry?.completed?.some(s => 'time' in s);
         },
     },
     async mounted() {

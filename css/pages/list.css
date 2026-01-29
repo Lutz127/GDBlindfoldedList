@@ -1,3 +1,35 @@
+/* Blured level background */
+
+.page-list {
+    position: relative;
+    overflow: visible;
+}
+
+.page-list .level-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(10px);
+    opacity: 0;
+
+    transform: scale(1.1);
+    pointer-events: none;
+
+    transition: background-image 0.4s ease, opacity 0.4s ease;
+}
+.dark .level-background {
+    opacity: 0.2;
+}
+.page-list > *:not(.level-background) {
+    position: relative;
+    z-index: 1;
+}
+
 .page-list .list-container,
 .page-list .level-container,
 .page-list .meta-container {
@@ -21,7 +53,7 @@
     width: 100%;
 }
 .page-list .list .level button {
-    background-color: var(--color-background);
+    background-color: transparent;
     color: var(--color-on-background);
     border: none;
     border-radius: 0.5rem;
@@ -41,7 +73,7 @@
     color: var(--color-on-background-hover);
 }
 .page-list .list .level.active button {
-    background-color: var(--color-primary);
+    background-color: rgba(94, 47, 170, 1);
     color: var(--color-on-primary);
 }
 .page-list .level-container .level {
@@ -125,4 +157,38 @@
 }
 .page-list .meta .editors li a:hover {
     text-decoration: underline;
+}
+.page-list .meta-container {
+    position: relative;
+}
+.dark .list-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+}
+.page-list.dark .meta-container::before {
+    content: "";
+    position: absolute;
+
+    top: 0;
+    bottom: 0;
+
+    left: -2rem; 
+    right: 0;
+
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+    pointer-events: none;
+}
+.page-list.dark .meta-container {
+    overflow: visible;
+}
+.page-list.dark .list-container {
+    overflow: visible;
 }

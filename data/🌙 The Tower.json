@@ -1,0 +1,37 @@
+{
+    "id": 97459496,
+    "name": "🌙 The Tower",
+    "author": "RobTop",
+    "creators": ["RobTop"],
+    "verifier": "Lutz127",
+    "verification": "https://www.youtube.com/watch?v=0HPw5rQuMsU",
+    "platformer": true,
+    "password": "Normal",
+    "records": [
+        {
+            "user": "RaiinWing",
+            "link": "https://www.youtube.com/watch?v=iGeniJddogw",
+            "time": "1:15.275"
+        },
+        {
+            "user": "Hamid ScorpiOn",
+            "link": "https://www.youtube.com/watch?v=qamej9QBY_M",
+            "time": "1:18.104"
+        },
+        {
+            "user": "realnono",
+            "link": "https://www.youtube.com/watch?v=593Zpzfx48k",
+            "time": "1:23.795"
+        },
+        {
+            "user": "Lutz127",
+            "link": "https://www.youtube.com/watch?v=0HPw5rQuMsU",
+            "time": "7:07.937"
+        },
+        {
+            "user": "Walgrey",
+            "link": "https://www.youtube.com/watch?v=mrHVq2YKVU8",
+            "time": "10:11.404"
+        }
+    ]
+}

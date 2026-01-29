@@ -3,10 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=1024" />
-        <title>Your List Name</title>
+        <title>Blindfolded List</title>
 
         <!-- Replace your server icon by uploading an image file named "list_icon.png"-->
-        <link rel="icon" href="/list_icon.png" />
+        <link rel="icon" href="/logo_outline.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -22,7 +22,6 @@
             type="text/css"
             href="/css/pages/leaderboard.css"
         />
-        <link rel="stylesheet" type="text/css" href="/css/pages/roulette.css" />
         <link rel="stylesheet" type="text/css" href="/css/components/nav.css" />
         <link rel="stylesheet" type="text/css" href="/css/components/btn.css" />
         <link
@@ -37,7 +36,7 @@
     <body id="app">
         <header :class="{ dark: store.dark }">
             <div class="logo">
-                <h2>Sample List</h2>
+                <h2>Blindfolded List</h2>
                 <p>v1.0.0</p>
             </div>
             <nav class="nav">
@@ -46,9 +45,6 @@
                 </router-link>
                 <router-link class="nav__tab" to="/leaderboard">
                     <span class="type-label-lg">Leaderboard</span>
-                </router-link>
-                <router-link class="nav__tab" to="/roulette">
-                    <span class="type-label-lg">Roulette</span>
                 </router-link>
                 <div class="nav__actions">
                     <button

@@ -1,4 +1,5 @@
 import { round, score } from './score.js';
+import { timeToMs } from './time.js';
 
 /**
  * Path to directory containing `_list.json` and all levels
@@ -18,9 +19,13 @@ export async function fetchList() {
                         {
                             ...level,
                             path,
-                            records: level.records.sort(
-                                (a, b) => b.percent - a.percent,
-                            ),
+                            records: level.platformer
+                                ? level.records.sort((a, b) =>
+                                    timeToMs(a.time) - timeToMs(b.time)
+                                )
+                                : level.records.sort((a, b) =>
+                                    b.percent - a.percent
+                                ),
                         },
                         null,
                     ];
@@ -52,6 +57,7 @@ export async function fetchLeaderboard() {
     const scoreMap = {};
     const errs = [];
     list.forEach(([level, err], rank) => {
+        const isPlatformer = level.platformer === true;
         if (err) {
             errs.push(err);
             return;
@@ -70,23 +76,39 @@ export async function fetchLeaderboard() {
         verified.push({
             rank: rank + 1,
             level: level.name,
-            score: score(rank + 1, 100, level.percentToQualify),
+            score: 0,
             link: level.verification,
         });
 
         // Records
         level.records.forEach((record) => {
-            const user = Object.keys(scoreMap).find(
-                (u) => u.toLowerCase() === record.user.toLowerCase(),
-            ) || record.user;
+            const user =
+                Object.keys(scoreMap).find(
+                    (u) => u.toLowerCase() === record.user.toLowerCase(),
+                ) || record.user;
+
             scoreMap[user] ??= {
                 verified: [],
                 completed: [],
                 progressed: [],
             };
-            const { completed, progressed } = scoreMap[user];
+
+            // ---- PLATFORMER ----
+            if (isPlatformer) {
+                scoreMap[user].completed.push({
+                    rank: rank + 1,
+                    level: level.name,
+                    time: record.time,
+                    timeMs: timeToMs(record.time),
+                    score: score(rank + 1, 100, 100),
+                    link: record.link,
+                });
+                return;
+            }
+
+            // ---- CLASSIC ----
             if (record.percent === 100) {
-                completed.push({
+                scoreMap[user].completed.push({
                     rank: rank + 1,
                     level: level.name,
                     score: score(rank + 1, 100, level.percentToQualify),
@@ -95,7 +117,7 @@ export async function fetchLeaderboard() {
                 return;
             }
 
-            progressed.push({
+            scoreMap[user].progressed.push({
                 rank: rank + 1,
                 level: level.name,
                 percent: record.percent,

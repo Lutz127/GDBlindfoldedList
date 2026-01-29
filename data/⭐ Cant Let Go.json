@@ -1,0 +1,17 @@
+{
+    "id": 77237542,
+    "name": "⭐ Cant Let Go",
+    "author": "RobTop",
+    "creators": ["RobTop"],
+    "verifier": "RaiinWing",
+    "verification": "https://www.youtube.com/watch?v=pTSSyFm98EM",
+    "percentToQualify": 100,
+    "password": "Hard",
+    "records": [
+        {
+            "user": "RaiinWing",
+            "link": "https://www.youtube.com/watch?v=pTSSyFm98EM",
+            "percent": 100
+        }
+    ]
+}

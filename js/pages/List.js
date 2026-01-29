@@ -21,6 +21,10 @@ export default {
             <Spinner></Spinner>
         </main>
         <main v-else class="page-list">
+            <div
+                class="level-background"
+                :style="backgroundStyle"
+            ></div>
             <div class="list-container">
                 <table class="list" v-if="list">
                     <tr v-for="([level, err], i) in list">
@@ -44,34 +48,43 @@ export default {
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
-                            <p>{{ score(selected + 1, 100, level.percentToQualify) }}</p>
+                            <p>
+                                {{ isPlatformer
+                                    ? score(selected + 1, 100, 100)
+                                    : score(selected + 1, 100, level.percentToQualify)
+                                }}
+                            </p>
                         </li>
                         <li>
                             <div class="type-title-sm">ID</div>
                             <p>{{ level.id }}</p>
                         </li>
                         <li>
-                            <div class="type-title-sm">Password</div>
+                            <div class="type-title-sm">Difficulty</div>
                             <p>{{ level.password || 'Free to Copy' }}</p>
                         </li>
                     </ul>
                     <h2>Records</h2>
-                    <p v-if="selected + 1 <= 75"><strong>{{ level.percentToQualify }}%</strong> or better to qualify</p>
-                    <p v-else-if="selected +1 <= 150"><strong>100%</strong> or better to qualify</p>
-                    <p v-else>This level does not accept new records.</p>
+                    <p v-if="!isPlatformer && selected + 1 <= 75">
+                        <strong>{{ level.percentToQualify }}%</strong> or better to qualify
+                    </p>
+                    <p v-else-if="!isPlatformer && selected + 1 <= 150">
+                        <strong>100%</strong> or better to qualify
+                    </p>
+                    <p v-else-if="!isPlatformer">
+                        This level does not accept new records.
+                    </p>
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
                             <td class="percent">
-                                <p>{{ record.percent }}%</p>
+                                <p v-if="!isPlatformer">{{ record.percent }}%</p>
+                                <p v-else>{{ record.time }}</p>
                             </td>
                             <td class="user">
                                 <a :href="record.link" target="_blank" class="type-label-lg">{{ record.user }}</a>
                             </td>
                             <td class="mobile">
                                 <img v-if="record.mobile" :src="\`/assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" alt="Mobile">
-                            </td>
-                            <td class="hz">
-                                <p>{{ record.hz }}Hz</p>
                             </td>
                         </tr>
                     </table>
@@ -85,9 +98,6 @@ export default {
                     <div class="errors" v-show="errors.length > 0">
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
-                    <div class="og">
-                        <p class="type-label-md">Website layout made by <a href="https://tsl.pages.dev/" target="_blank">TheShittyList</a></p>
-                    </div>
                     <template v-if="editors">
                         <h3>List Editors</h3>
                         <ol class="editors">
@@ -100,30 +110,19 @@ export default {
                     </template>
                     <h3>Submission Requirements</h3>
                     <p>
-                        Achieved the record without using hacks (however, FPS bypass is allowed, up to 360fps)
+                        Runs are included based on plausibility of claim, alignment of practice with the recorded run, and extent of proof. (Notably, Blind Dasher's runs are not included in this sheet.)
                     </p>
                     <p>
-                        Achieved the record on the level that is listed on the site - please check the level ID before you submit a record
+                        Effective 20 Nov 2025, entries must shine a flashlight through the blindfold at the camera to verify its opacity AND have either a handcam or audible keypresses. We may also request the full recording of attempts leading up to the successful run.
                     </p>
+                    <h3>
+                        Blindfolded Leaderboards Spreadsheet
+                    </h3>
                     <p>
-                        Have either source audio or clicks/taps in the video. Edited audio only does not count
+                        <a href="https://docs.google.com/spreadsheets/d/1kGK6w2plz3wknw7Uz6ifaE3hjZa0NaRnGEiia8tulDU/edit?usp=sharing/" target="_blank" style="color: #b486ff;; text-decoration: underline;">Click here to view the spreadsheet.</a> 
                     </p>
-                    <p>
-                        The recording must have a previous attempt and entire death animation shown before the completion, unless the completion is on the first attempt. Everyplay records are exempt from this
-                    </p>
-                    <p>
-                        The recording must also show the player hit the endwall, or the completion will be invalidated.
-                    </p>
-                    <p>
-                        Do not use secret routes or bug routes
-                    </p>
-                    <p>
-                        Do not use easy modes, only a record of the unmodified level qualifies
-                    </p>
-                    <p>
-                        Once a level falls onto the Legacy List, we accept records for it for 24 hours after it falls off, then afterwards we never accept records for said level
-                    </p>
-                </div>
+                    <p class="type-label-sm">(Submitting Records and Discord Link aren't implemented yet)</p>
+                </div>  
             </div>
         </main>
     `,
@@ -140,6 +139,9 @@ export default {
         level() {
             return this.list[this.selected][0];
         },
+        isPlatformer() {
+            return this.level?.platformer === true;
+        },
         video() {
             if (!this.level.showcase) {
                 return embed(this.level.verification);
@@ -150,6 +152,13 @@ export default {
                     ? this.level.showcase
                     : this.level.verification
             );
+        },
+        backgroundStyle() {
+            if (!this.level) return {};
+
+            return {
+                backgroundImage: `url(https://levelthumbs.prevter.me/thumbnail/${this.level.id})`,
+            };
         },
     },
     async mounted() {
