@@ -26,14 +26,31 @@ export default {
                 :style="backgroundStyle"
             ></div>
             <div class="list-container">
-                <table class="list" v-if="list">
-                    <tr v-for="([level, err], i) in list">
+                <div class="list-tabs">
+                    <button
+                    class="list-tab"
+                    :class="{ selected: tab === 'classic' }"
+                    @click="switchTab('classic')"
+                    >
+                    Classic
+                    </button>
+
+                    <button
+                    class="list-tab"
+                    :class="{ selected: tab === 'platformer' }"
+                    @click="switchTab('platformer')"
+                    >
+                    Platformer
+                    </button>
+                </div>
+                <table class="list" v-if="filteredList.length">
+                    <tr v-for="({ entry: [level, err] }, i) in filteredList">
                         <td class="rank">
                             <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
                             <p v-else class="type-label-lg">Legacy</p>
                         </td>
-                        <td class="level" :class="{ 'active': selected == i, 'error': !level }">
-                            <button @click="selected = i">
+                        <td class="level" :class="{ 'active': selectedIndex === i, 'error': !level }">
+                            <button @click="selectedIndex = i">
                                 <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
                             </button>
                         </td>
@@ -49,10 +66,13 @@ export default {
                         <li>
                             <div class="type-title-sm">Points when completed</div>
                             <p>
-                                {{ isPlatformer
-                                    ? score(selected + 1, 100, 100)
-                                    : score(selected + 1, 100, level.percentToQualify)
-                                }}
+                            {{
+                                score(
+                                selectedIndex + 1,
+                                100,
+                                isPlatformer ? 100 : level.percentToQualify
+                                )
+                            }}
                             </p>
                         </li>
                         <li>
@@ -130,14 +150,16 @@ export default {
         list: [],
         editors: [],
         loading: true,
-        selected: 0,
+        selectedIndex: 0,
         errors: [],
         roleIconMap,
-        store
+        store,
+        tab: "classic",
     }),
     computed: {
         level() {
-            return this.list[this.selected][0];
+            const item = this.filteredList[this.selectedIndex];
+            return item ? item.entry[0] : null;
         },
         isPlatformer() {
             return this.level?.platformer === true;
@@ -159,6 +181,23 @@ export default {
             return {
                 backgroundImage: `url(https://levelthumbs.prevter.me/thumbnail/${this.level.id})`,
             };
+        },
+        filteredList() {
+            if (!this.list) return [];
+
+            return this.list
+                .map((entry, originalIndex) => ({
+                    entry,
+                    originalIndex,
+                }))
+                .filter(({ entry }) => {
+                    const level = entry[0];
+                    if (!level) return false;
+
+                    return this.tab === "platformer"
+                        ? level.platformer === true
+                        : level.platformer !== true;
+                });
         },
     },
     async mounted() {
@@ -183,11 +222,22 @@ export default {
                 this.errors.push("Failed to load list editors.");
             }
         }
-
+        this.selectTopOfTab();
         this.loading = false;
     },
     methods: {
         embed,
         score,
+
+        switchTab(newTab) {
+            if (this.tab !== newTab) {
+            this.tab = newTab;
+            this.selectTopOfTab();
+            }
+        },
+
+        selectTopOfTab() {
+            this.selectedIndex = 0;
+        },
     },
 };

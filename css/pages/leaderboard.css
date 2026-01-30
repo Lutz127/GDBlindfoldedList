@@ -1,53 +1,76 @@
 .page-leaderboard-container {
-    display: block;
+    height: calc(100vh - 4.5rem);
 }
+
+.page-leaderboard-container {
+    display: block;
+    overflow: hidden;   
+}
+
 .page-leaderboard {
-    height: 100%;
+    height: calc(100vh - 4.5rem);
+    overflow: hidden;
+
     display: grid;
     grid-template-columns: minmax(24rem, 2fr) 3fr;
-    grid-template-rows: max-content 1fr;
+    grid-template-rows: max-content max-content 1fr;
     column-gap: 2rem;
+
     max-width: 80rem;
     margin: 0 auto;
+
+    scrollbar-gutter: stable;
 }
-.page-leaderboard > div {
+
+.page-leaderboard .board-container,
+.page-leaderboard .player-container {
+    min-height: 0;
     overflow-y: auto;
 }
 .page-leaderboard .error-container {
-    grid-row: 1;
+    grid-row: 2;
     grid-column: 1 / span 2;
 }
+
 .page-leaderboard .error-container .error {
     padding: 1rem;
     background-color: var(--color-error);
     color: var(--color-on-error);
 }
+
 .page-leaderboard .board-container,
 .page-leaderboard .player-container {
-    grid-row: 2;
+    grid-row: 3;
     padding-block: 2rem;
 }
+
 .page-leaderboard .board-container {
     padding-inline: 1rem;
+    padding-top: 0;
 }
+
 .page-leaderboard .board {
     table-layout: auto;
     display: block;
     width: 100%;
 }
+
 .page-leaderboard .board .rank {
     padding-block: 1rem;
     text-align: end;
 }
+
 .page-leaderboard .board .total {
     padding: 1rem;
     text-align: end;
 }
+
 .page-leaderboard .board .user {
     width: 100%;
 }
+
 .page-leaderboard .board .user button {
-    background-color: var(--color-background);
+    background-color: transparent;
     color: var(--color-on-background);
     border: none;
     border-radius: 0.5rem;
@@ -56,38 +79,208 @@
     word-break: normal;
     overflow-wrap: anywhere;
 }
+
 .page-leaderboard .board .user button:hover {
     background-color: var(--color-background-hover);
     color: var(--color-on-background-hover);
     cursor: pointer;
 }
+
 .page-leaderboard .board .user.active button {
     background-color: var(--color-primary);
     color: var(--color-on-primary);
 }
+
 .page-leaderboard .player {
     display: flex;
     flex-direction: column;
     gap: 2rem;
     padding-right: 2rem;
 }
+
 .page-leaderboard .player .table {
     table-layout: fixed;
 }
+
 .page-leaderboard .player .table tr td:not(:last-child) {
     padding-right: 2rem;
 }
+
 .page-leaderboard .player .table p,
 .page-leaderboard .player .table a {
     padding-block: 1rem;
 }
+
 .page-leaderboard .player .table .rank p,
 .page-leaderboard .player .table .score p {
     text-align: end;
 }
+
 .page-leaderboard .player .table .level {
     width: 100%;
 }
+
 .page-leaderboard .player .table a:hover {
     text-decoration: underline;
+}
+
+.page-leaderboard .list-tab {
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 17.1428571429px;
+    line-height: 30px;
+
+    -webkit-font-smoothing: subpixel-antialiased;
+
+    padding-top: 4px;
+    padding-inline: 0.5rem;
+
+    display: flex;
+    align-items: center;
+
+    background: transparent;
+    border: none;
+    border-bottom: 4px solid transparent;
+
+    color: var(--color-on-background);
+    cursor: pointer;
+
+    transition: border-color 100ms ease;
+}
+
+.page-leaderboard .list-tab:hover {
+    border-bottom-color: var(--color-on-background);
+}
+
+.page-leaderboard .list-tab.selected {
+    border-bottom-color: var(--color-on-background);
+}
+
+.page-leaderboard-container {
+    position: relative;
+}
+
+.page-leaderboard-container .level-background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    filter: blur(10px);
+    transform: scale(1.1);
+    opacity: 0;
+
+    pointer-events: none;
+    transition: background-image 0.4s ease, opacity 0.4s ease;
+}
+
+.level-background {
+    opacity: 0;
+}
+
+.dark .level-background {
+    opacity: 0.2;
+}
+
+
+.page-leaderboard-container > *:not(.level-background) {
+    position: relative;
+    z-index: 1;
+}
+
+/* === LEADERBOARD TOP TABS (MATCH OLD STYLE) === */
+.page-leaderboard-container > .tabs-panel {
+    display: flex;
+    justify-content: center;
+
+    margin-top: 1.5rem;
+    margin-bottom: 1.25rem;
+
+    position: relative;
+}
+
+.page-leaderboard-container > .tabs-panel {
+    position: relative;
+    overflow: visible;
+}
+
+.dark .page-leaderboard-container > .tabs-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -100vw;
+    right: -100vw;
+
+    background: rgba(0, 0, 0, 0.45);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.page-leaderboard-container > .tabs-panel .list-tabs {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    justify-content: center;
+    column-gap: 2rem;
+}
+
+/* === LEADERBOARD TABS (MATCH LIST PAGE EXACTLY) === */
+
+.leaderboard-tabs {
+    position: relative;
+    overflow: visible;
+
+    margin-top: -1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.dark .leaderboard-tabs {
+    background: rgba(0, 0, 0, 0.45);
+}
+.leaderboard-tabs {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.page-leaderboard-container {
+    overflow-x: hidden;
+}
+.leaderboard-tabs .list-tabs {
+    display: flex;
+    justify-content: center;
+    column-gap: 2rem;
+
+    position: relative;
+    z-index: 1;
+}
+
+/* reuse EXACT list tab style */
+.leaderboard-tabs .list-tab {
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 17.1428571429px;
+    line-height: 40px;
+
+    -webkit-font-smoothing: subpixel-antialiased;
+
+    padding-top: 30px;
+    padding-inline: 0.5rem;
+
+    background: transparent;
+    border: none;
+    border-bottom: 4px solid transparent;
+
+    color: var(--color-on-background);
+    cursor: pointer;
+}
+
+.leaderboard-tabs .list-tab:hover {
+    border-bottom-color: var(--color-on-background);
+}
+
+.leaderboard-tabs .list-tab.selected {
+    border-bottom-color: var(--color-on-background);
 }

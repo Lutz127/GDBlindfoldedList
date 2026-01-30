@@ -53,3 +53,12 @@
 .nav .nav__actions .nav__cta:hover:not(:active) {
     transform: translateY(-2px);
 }
+
+/* List tabs (nav-style, scoped) */
+.list-tabs {
+    display: flex;
+    justify-content: center;
+    column-gap: 2rem;
+
+    margin-bottom: 0.5rem;
+}

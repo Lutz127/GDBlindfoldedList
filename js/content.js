@@ -4,7 +4,7 @@ import { timeToMs } from './time.js';
 /**
  * Path to directory containing `_list.json` and all levels
  */
-const dir = '/data';
+const dir = '/GDBlindfoldedList/data';
 
 export async function fetchList() {
     const listResult = await fetch(`${dir}/_list.json`);
@@ -30,7 +30,7 @@ export async function fetchList() {
                         null,
                     ];
                 } catch {
-                    console.error(`Failed to load level #${rank + 1} ${path}.`);
+                    console.error(`Failed to load level #${rank} ${path}.`);
                     return [null, path];
                 }
             }),
@@ -54,10 +54,32 @@ export async function fetchEditors() {
 export async function fetchLeaderboard() {
     const list = await fetchList();
 
+    const classic = [];
+    const platformer = [];
+
+    list.forEach(([level, err]) => {
+        if (!level || err) return;
+        if (level.platformer === true) {
+            platformer.push(level);
+        } else {
+            classic.push(level);
+        }
+    });
+
+    const classicRank = new Map(
+        classic.map((lvl, i) => [lvl.name, i + 1])
+    );
+    const platformerRank = new Map(
+        platformer.map((lvl, i) => [lvl.name, i + 1])
+    );
+
     const scoreMap = {};
     const errs = [];
-    list.forEach(([level, err], rank) => {
+    list.forEach(([level, err]) => {
         const isPlatformer = level.platformer === true;
+        const rank = isPlatformer
+            ? platformerRank.get(level.name)
+            : classicRank.get(level.name);
         if (err) {
             errs.push(err);
             return;
@@ -74,10 +96,12 @@ export async function fetchLeaderboard() {
         };
         const { verified } = scoreMap[verifier];
         verified.push({
-            rank: rank + 1,
+            rank: rank,
             level: level.name,
+            levelId: level.id,
             score: 0,
             link: level.verification,
+            isPlatformer,
         });
 
         // Records
@@ -96,12 +120,14 @@ export async function fetchLeaderboard() {
             // ---- PLATFORMER ----
             if (isPlatformer) {
                 scoreMap[user].completed.push({
-                    rank: rank + 1,
+                    rank: rank,
                     level: level.name,
+                    levelId: level.id,
                     time: record.time,
                     timeMs: timeToMs(record.time),
-                    score: score(rank + 1, 100, 100),
+                    score: score(rank, 100, 100),
                     link: record.link,
+                    isPlatformer,
                 });
                 return;
             }
@@ -109,25 +135,28 @@ export async function fetchLeaderboard() {
             // ---- CLASSIC ----
             if (record.percent === 100) {
                 scoreMap[user].completed.push({
-                    rank: rank + 1,
+                    rank: rank,
                     level: level.name,
-                    score: score(rank + 1, 100, level.percentToQualify),
+                    levelId: level.id,
+                    score: score(rank, 100, level.percentToQualify),
                     link: record.link,
+                    isPlatformer,
                 });
                 return;
             }
 
             scoreMap[user].progressed.push({
-                rank: rank + 1,
+                rank: rank,
                 level: level.name,
+                levelId: level.id,
                 percent: record.percent,
-                score: score(rank + 1, record.percent, level.percentToQualify),
+                score: score(rank, record.percent, level.percentToQualify),
                 link: record.link,
+                isPlatformer,
             });
         });
     });
 
-    // Wrap in extra Object containing the user and total score
     const res = Object.entries(scoreMap).map(([user, scores]) => {
         const { verified, completed, progressed } = scores;
         const total = [verified, completed, progressed]
@@ -141,6 +170,5 @@ export async function fetchLeaderboard() {
         };
     });
 
-    // Sort by total score
     return [res.sort((a, b) => b.total - a.total), errs];
 }

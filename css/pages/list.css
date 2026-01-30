@@ -1,8 +1,7 @@
-/* Blured level background */
-
 .page-list {
     position: relative;
-    overflow: visible;
+    height: calc(100vh - 4.5rem);
+    overflow: hidden;
 }
 
 .page-list .level-background {
@@ -191,4 +190,62 @@
 }
 .page-list.dark .list-container {
     overflow: visible;
+}
+
+.page-list .list-tabs {
+    display: flex;
+    justify-content: center;
+    column-gap: 2rem;
+
+    margin-top: -1.5rem;
+
+    margin-bottom: 6.25rem;
+}
+
+.page-list .list-tab {
+    font-family: "Lexend Deca", sans-serif;
+    font-size: 17.1428571429px;
+    line-height: 30px;
+
+    -webkit-font-smoothing: subpixel-antialiased;
+
+    padding-top: 4px;
+    padding-inline: 0.5rem;
+
+    display: flex;
+    align-items: center;
+
+    background: transparent;
+    border: none;
+    border-bottom: 4px solid transparent;
+
+    color: var(--color-on-background);
+    cursor: pointer;
+
+    transition: border-color 100ms ease;
+}
+
+.page-list .list-tab:hover {
+    border-bottom-color: var(--color-on-background);
+}
+
+.page-list .list-tab.selected {
+    border-bottom-color: var(--color-on-background);
+}
+
+.page-list .list-tabs {
+    display: flex;
+    justify-content: center;
+    column-gap: 2rem;
+    margin-top: -1.25rem;
+
+    margin-bottom: 0.75rem;
+}
+
+.page-list .tabs {
+    display: flex;
+    justify-content: center;
+    column-gap: 2rem;
+
+    padding-top: 0.5rem;
 }
