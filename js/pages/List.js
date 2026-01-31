@@ -85,15 +85,6 @@ export default {
                         </li>
                     </ul>
                     <h2>Records</h2>
-                    <p v-if="!isPlatformer && selected + 1 <= 75">
-                        <strong>{{ level.percentToQualify }}%</strong> or better to qualify
-                    </p>
-                    <p v-else-if="!isPlatformer && selected + 1 <= 150">
-                        <strong>100%</strong> or better to qualify
-                    </p>
-                    <p v-else-if="!isPlatformer">
-                        This level does not accept new records.
-                    </p>
                     <table class="records">
                         <tr v-for="record in level.records" class="record">
                             <td class="percent">
@@ -141,7 +132,7 @@ export default {
                     <p>
                         <a href="https://docs.google.com/spreadsheets/d/1kGK6w2plz3wknw7Uz6ifaE3hjZa0NaRnGEiia8tulDU/edit?usp=sharing/" target="_blank" style="color: #b486ff;; text-decoration: underline;">Click here to view the spreadsheet.</a> 
                     </p>
-                    <p class="type-label-sm">(Submitting Records and Discord Link aren't implemented yet)</p>
+                    <p class="type-label-sm">(Discord Link isn't implemented yet)</p>
                 </div>  
             </div>
         </main>
