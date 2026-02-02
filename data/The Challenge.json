@@ -1,0 +1,17 @@
+{
+    "id": 77243245,
+    "name": "⭐ The Challenge",
+    "author": "RobTop",
+    "creators": ["RobTop"],
+    "verifier": "598",
+    "verification": "X",
+    "percentToQualify": 100,
+    "password": "Easy",
+    "records": [
+        {
+            "user": "598",
+            "link": "https://www.youtube.com/watch?v=h38dUWyPGsE",
+            "percent": 100
+        }
+    ]
+}
