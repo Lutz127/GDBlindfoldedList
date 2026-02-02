@@ -4,8 +4,18 @@ import { timeToMs } from './time.js';
 /**
  * Path to directory containing `_list.json` and all levels.
  */
-const dir = '/GDBlindfoldedList/data'; 
-// const dir = '/data';
+let dir;
+
+if (window.location.hostname.endsWith('pages.dev')) {
+    // Cloudflare Pages
+    dir = '/data';
+} else if (window.location.hostname.endsWith('github.io')) {
+    // GitHub Pages
+    dir = '/GDBlindfoldedList/data';
+} else {
+    // Local dev
+    dir = './data';
+}
 
 export async function fetchList() {
     const listResult = await fetch(`${dir}/_list.json`);
