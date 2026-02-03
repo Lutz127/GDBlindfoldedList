@@ -1,0 +1,17 @@
+{
+    "id": 57551137,
+    "name": "⭐ Ayu",
+    "author": "Retropt",
+    "creators": ["Retropt"],
+    "verifier": "ivi",
+    "verification": "https://www.youtube.com/watch?v=REpvRw80FU4",
+    "percentToQualify": 100,
+    "password": "Easy",
+    "records": [
+        {
+            "user": "ivi",
+            "link": "https://www.youtube.com/watch?v=REpvRw80FU4",
+            "percent": 100
+        }
+    ]
+}
