@@ -109,6 +109,7 @@ export default {
                     <div class="errors" v-show="errors.length > 0">
                         <p class="error" v-for="error of errors">{{ error }}</p>
                     </div>
+                    <p class="type-label-sm" style="color: #fffaad;">(Discord server is finished, feel free to join!)</p>
                     <template v-if="editors">
                         <h3>List Editors</h3>
                         <ol class="editors">
@@ -132,7 +133,6 @@ export default {
                     <p>
                         <a href="https://docs.google.com/spreadsheets/d/1kGK6w2plz3wknw7Uz6ifaE3hjZa0NaRnGEiia8tulDU/edit?usp=sharing/" target="_blank" style="color: #b486ff;; text-decoration: underline;">Click here to view the spreadsheet.</a> 
                     </p>
-                    <p class="type-label-sm">(Discord server is just a placeholder empty server for now)</p>
                 </div>  
             </div>
         </main>
