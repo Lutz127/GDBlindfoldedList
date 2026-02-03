@@ -13,7 +13,7 @@ if (window.location.hostname.endsWith('pages.dev')) {
     // GitHub Pages
     dir = '/GDBlindfoldedList/data';
 } else {
-    // Local dev
+    // Local dev or fallback
     dir = './data';
 }
 
