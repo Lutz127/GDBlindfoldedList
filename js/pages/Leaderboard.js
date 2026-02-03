@@ -245,30 +245,52 @@ export default {
             const completed = this.entry.completed;
             if (!completed.length) return null;
 
-            // Separate by category
             const classic = completed.filter(s => !s.isPlatformer);
             const platformer = completed.filter(s => s.isPlatformer);
 
-            let pool = completed;
-
             if (this.tab === "classic") {
-                pool = classic;
-            } else if (this.tab === "platformer") {
-                pool = platformer;
-            } else {
-                // ALL tab: choose category with more completions
-                pool =
-                    platformer.length > classic.length
-                        ? platformer
-                        : classic;
+                if (!classic.length) return null;
+                return classic.reduce((best, cur) =>
+                    cur.rank < best.rank ? cur : best
+                );
             }
 
-            if (!pool.length) return null;
+            if (this.tab === "platformer") {
+                if (!platformer.length) return null;
+                return platformer.reduce((best, cur) =>
+                    cur.rank < best.rank ? cur : best
+                );
+            }
 
-            // Hardest = lowest rank number
-            return pool.reduce((best, cur) =>
-                cur.rank < best.rank ? cur : best
-            );
+            // === ALL TAB LOGIC ===
+
+            // top 1 platformer
+            const topPlatformer = platformer.find(s => s.rank === 1);
+            if (topPlatformer) return topPlatformer;
+
+            // 2Find hardest of each category
+            const bestPlatformer =
+                platformer.length
+                    ? platformer.reduce((best, cur) =>
+                        cur.rank < best.rank ? cur : best
+                    )
+                    : null;
+
+            const bestClassic =
+                classic.length
+                    ? classic.reduce((best, cur) =>
+                        cur.rank < best.rank ? cur : best
+                    )
+                    : null;
+
+            // 3Pick the harder one
+            if (bestPlatformer && bestClassic) {
+                return bestPlatformer.rank < bestClassic.rank
+                    ? bestPlatformer
+                    : bestClassic;
+            }
+
+            return bestPlatformer ?? bestClassic ?? null;
         },
 
         backgroundStyle() {

@@ -121,7 +121,7 @@ export default {
                     </template>
                     <h3>Submission Requirements</h3>
                     <p>
-                        Runs are included based on plausibility of claim, alignment of practice with the recorded run, and extent of proof. (Notably, Blind Dasher's runs are not included in this sheet.)
+                        Runs are included based on plausibility of claim, alignment of practice with the recorded run, and extent of proof. (Notably, Blind Dasher's runs are not included in this list.)
                     </p>
                     <p>
                         Effective 20 Nov 2025, entries must shine a flashlight through the blindfold at the camera to verify its opacity AND have either a handcam or audible keypresses. We may also request the full recording of attempts leading up to the successful run.
