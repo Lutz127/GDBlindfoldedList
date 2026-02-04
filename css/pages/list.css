@@ -4,6 +4,47 @@
     overflow: hidden;
 }
 
+.hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+}
+.page-list .meta-container {
+    position: relative;
+    height: 100%;
+    overflow-x: visible;
+    overflow-y: visible;
+}
+.page-list .meta-scroll {
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    min-height: 0;
+    padding-right: 2rem;
+}
+
+.page-list .list-container {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.page-list .list-scroll {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    min-height: 0;
+    padding-right: 1rem;
+}
+
 .page-list .level-background {
     position: fixed;
     inset: 0;
@@ -185,9 +226,7 @@
     z-index: -1;
     pointer-events: none;
 }
-.page-list.dark .meta-container {
-    overflow: visible;
-}
+
 .page-list.dark .list-container {
     overflow: visible;
 }

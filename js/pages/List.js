@@ -43,19 +43,21 @@ export default {
                     Platformer
                     </button>
                 </div>
-                <table class="list" v-if="filteredList.length">
-                    <tr v-for="({ entry: [level, err] }, i) in filteredList">
-                        <td class="rank">
-                            <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
-                            <p v-else class="type-label-lg">Legacy</p>
-                        </td>
-                        <td class="level" :class="{ 'active': selectedIndex === i, 'error': !level }">
-                            <button @click="selectedIndex = i">
-                                <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
-                            </button>
-                        </td>
-                    </tr>
-                </table>
+                <div class="list-scroll hide-scrollbar">
+                    <table class="list" v-if="filteredList.length">
+                        <tr v-for="({ entry: [level, err] }, i) in filteredList">
+                            <td class="rank">
+                                <p v-if="i + 1 <= 150" class="type-label-lg">#{{ i + 1 }}</p>
+                                <p v-else class="type-label-lg">Legacy</p>
+                            </td>
+                            <td class="level" :class="{ 'active': selectedIndex === i, 'error': !level }">
+                                <button @click="selectedIndex = i">
+                                    <span class="type-label-lg">{{ level?.name || \`Error (\${err}.json)\` }}</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
             <div class="level-container">
                 <div class="level" v-if="level">
@@ -105,38 +107,40 @@ export default {
                 </div>
             </div>
             <div class="meta-container">
-                <div class="meta">
-                    <div class="errors" v-show="errors.length > 0">
-                        <p class="error" v-for="error of errors">{{ error }}</p>
-                    </div>
-                    <p class="type-label-sm" style="color: #fffaad;">(Discord server is finished, feel free to join!)</p>
-                    <template v-if="editors">
-                        <h3>List Editors</h3>
-                        <ol class="editors">
-                            <li v-for="editor in editors">
-                                <img :src="\`./assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`" :alt="editor.role">
-                                <a v-if="editor.link" class="type-label-lg link" target="_blank" :href="editor.link">{{ editor.name }}</a>
-                                <p v-else>{{ editor.name }}</p>
-                            </li>
-                        </ol>
-                    </template>
-                    <h3>Submission Requirements</h3>
-                    <p>
-                        Runs are included based on plausibility of claim, alignment of practice with the recorded run, and extent of proof. (Notably, Blind Dasher's runs are not included in this list.)
-                    </p>
-                    <p>
-                        Effective 20 Nov 2025, entries must shine a flashlight through the blindfold at the camera to verify its opacity AND have either a handcam or audible keypresses. We may also request the full recording of attempts leading up to the successful run.
-                    </p>
-                    <p>
-                        For levels to be added to the list, they must require at least 1 click to complete. Using audio cues or custom music is also not allowed.
-                    </p>
-                    <h3>
-                        Blindfolded Leaderboards Spreadsheet
-                    </h3>
-                    <p>
-                        <a href="https://docs.google.com/spreadsheets/d/1kGK6w2plz3wknw7Uz6ifaE3hjZa0NaRnGEiia8tulDU/edit?usp=sharing/" target="_blank" style="color: #b486ff;; text-decoration: underline;">Click here to view the spreadsheet.</a> 
-                    </p>
-                </div>  
+                <div class="meta-scroll hide-scrollbar">
+                    <div class="meta">
+                        <div class="errors" v-show="errors.length > 0">
+                            <p class="error" v-for="error of errors">{{ error }}</p>
+                        </div>
+                        <p class="type-label-sm" style="color: #fffaad;">(Discord server is finished, feel free to join!)</p>
+                        <template v-if="editors">
+                            <h3>List Editors</h3>
+                            <ol class="editors">
+                                <li v-for="editor in editors">
+                                    <img :src="\`./assets/\${roleIconMap[editor.role]}\${store.dark ? '-dark' : ''}.svg\`" :alt="editor.role">
+                                    <a v-if="editor.link" class="type-label-lg link" target="_blank" :href="editor.link">{{ editor.name }}</a>
+                                    <p v-else>{{ editor.name }}</p>
+                                </li>
+                            </ol>
+                        </template>
+                        <h3>Submission Requirements</h3>
+                        <p>
+                            Runs are included based on plausibility of claim, alignment of practice with the recorded run, and extent of proof. (Notably, Blind Dasher's runs are not included in this list.)
+                        </p>
+                        <p>
+                            Effective 20 Nov 2025, entries must shine a flashlight through the blindfold at the camera to verify its opacity AND have either a handcam or audible keypresses. We may also request the full recording of attempts leading up to the successful run.
+                        </p>
+                        <p>
+                            For levels to be added to the list, they must require at least 1 click to complete. Using audio cues or custom music is also not allowed.
+                        </p>
+                        <h3>
+                            Blindfolded Leaderboards Spreadsheet
+                        </h3>
+                        <p>
+                            <a href="https://docs.google.com/spreadsheets/d/1kGK6w2plz3wknw7Uz6ifaE3hjZa0NaRnGEiia8tulDU/edit?usp=sharing/" target="_blank" style="color: #b486ff;; text-decoration: underline;">Click here to view the spreadsheet.</a> 
+                        </p>
+                    </div> 
+                </div> 
             </div>
         </main>
     `,
