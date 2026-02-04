@@ -127,6 +127,9 @@ export default {
                     <p>
                         Effective 20 Nov 2025, entries must shine a flashlight through the blindfold at the camera to verify its opacity AND have either a handcam or audible keypresses. We may also request the full recording of attempts leading up to the successful run.
                     </p>
+                    <p>
+                        For levels to be added to the list, they must require at least 1 click to complete. Using audio cues or custom music is also not allowed.
+                    </p>
                     <h3>
                         Blindfolded Leaderboards Spreadsheet
                     </h3>
