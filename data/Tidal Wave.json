@@ -1,0 +1,22 @@
+{
+    "id": 93733469,
+    "name": "⭐ Tidal Wave",
+    "author": "sink",
+    "creators": ["sink"],
+    "verifier": "Abuigsito",
+    "verification": "https://youtu.be/Kj3CFu1kxl0",
+    "percentToQualify": 100,
+    "password": "Easy",
+    "records": [
+        {
+            "user": "Abuigsito",
+            "link": "https://youtu.be/Kj3CFu1kxl0",
+            "percent": 100
+        },
+        {
+            "user": "Lutz127",
+            "link": "https://youtu.be/c1W2ZiNo8q8",
+            "percent": 100
+        }
+    ]
+}
