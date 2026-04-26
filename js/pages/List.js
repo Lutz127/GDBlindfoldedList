@@ -112,7 +112,6 @@ export default {
                         <div class="errors" v-show="errors.length > 0">
                             <p class="error" v-for="error of errors">{{ error }}</p>
                         </div>
-                        <p class="type-label-sm" style="color: #fffaad;">(Discord server is finished, feel free to join!)</p>
                         <template v-if="editors">
                             <h3>List Editors</h3>
                             <ol class="editors">
