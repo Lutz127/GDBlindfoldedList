@@ -1,0 +1,17 @@
+{
+    "id": 30468868,
+    "name": "⭐ LETs GO",
+    "author": "izhar",
+    "creators": ["izhar"],
+    "verifier": "Crystal",
+    "verification": "https://www.youtube.com/watch?v=EpLlmbng3N8",
+    "percentToQualify": 100,
+    "password": "Normal",
+    "records": [
+        {
+            "user": "Crystal",
+            "link": "https://www.youtube.com/watch?v=EpLlmbng3N8",
+            "percent": 100
+        }
+    ]
+}
