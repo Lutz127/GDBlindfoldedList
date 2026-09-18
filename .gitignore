@@ -4,9 +4,13 @@ deno.json
 
 node_modules/
 
+# Never commit local secret files
 .env
 .env.*
 !.env.example
 .dev.vars
 .dev.vars.*
+
+# Cloudflare/Wrangler local state
 .wrangler/
+*.log

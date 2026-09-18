@@ -74,3 +74,11 @@ Nothing technical: **Mod Panel → Sign in with Discord → choose level → edi
 ## Optional Wrangler route
 
 `worker/wrangler.toml.example` is included if you prefer Cloudflare's CLI. Copy it to `worker/wrangler.toml`, fill only the non-secret IDs, use `wrangler secret put DISCORD_CLIENT_SECRET` and `wrangler secret put DISCORD_BOT_TOKEN`, then deploy. Never commit the filled secret values.
+
+## 7. Give moderators access to Google Form submissions
+
+The moderator panel now has a **Review submissions ↗** button that opens the Google Form's Responses page directly.
+
+Discord roles protect the Blindfolded List editor, but Discord cannot grant Google Forms permissions. In Google Forms, use **Share / Add collaborators** once for each moderator's Google account and give them editor access. After that, they can open the Responses page directly from the Mod Panel without needing the form URL sent to them again.
+
+The public form and moderator response-page URLs live in `js/config.js`. They are public URLs, not secrets.

@@ -1,90 +1,230 @@
 :root {
-    --color-background: white;
-    --color-on-background: black;
-    --color-background-hover: #eee;
-    --color-on-background-hover: black;
+    --header-height: 4rem;
+    --color-background: #f6f5f8;
+    --color-on-background: #17151b;
+    --color-surface: rgba(255, 255, 255, 0.92);
+    --color-surface-strong: #ffffff;
+    --color-surface-soft: #f0eef4;
+    --color-background-hover: #ece9f1;
+    --color-on-background-hover: #17151b;
+    --color-border: rgba(31, 24, 43, 0.12);
+    --color-border-strong: rgba(31, 24, 43, 0.22);
+    --color-muted: #6f6878;
     --color-primary: #5e2faa;
-    --color-on-primary: white;
-    --color-error: #de0000;
-    --color-on-error: white;
+    --color-primary-hover: #6f3bc0;
+    --color-primary-soft: rgba(94, 47, 170, 0.13);
+    --color-on-primary: #ffffff;
+    --color-error: #d71920;
+    --color-on-error: #ffffff;
+    --color-success: #1f8f4e;
+    --shadow-sm: 0 1px 2px rgba(20, 12, 32, 0.08), 0 4px 18px rgba(20, 12, 32, 0.05);
+    --shadow-md: 0 12px 34px rgba(20, 12, 32, 0.14);
+    --radius-sm: 0.5rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
 }
 
 main.dark,
 header.dark {
     color-scheme: dark;
-    --color-background: #0f0f0f;
-    --color-on-background: white;
-    --color-background-hover: #27262c;
-    --color-on-background-hover: white;
-    --color-primary: #3b1e69;
+    --color-background: #0d0d0f;
+    --color-on-background: #f7f5fb;
+    --color-surface: rgba(17, 17, 21, 0.92);
+    --color-surface-strong: #141419;
+    --color-surface-soft: #202027;
+    --color-background-hover: #292831;
+    --color-on-background-hover: #ffffff;
+    --color-border: rgba(255, 255, 255, 0.11);
+    --color-border-strong: rgba(255, 255, 255, 0.2);
+    --color-muted: #a9a4b1;
+    --color-primary: #452277;
+    --color-primary-hover: #5e2faa;
+    --color-primary-soft: rgba(124, 75, 196, 0.2);
     --color-primary-disabled: #2a1f3c;
-    --color-on-primary: white;
-    --color-error: #de0000;
-    --color-on-error: white;
+    --color-on-primary: #ffffff;
+    --color-error: #ef2028;
+    --color-on-error: #ffffff;
+    --color-success: #3fc172;
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.16);
+    --shadow-md: 0 18px 42px rgba(0, 0, 0, 0.32);
 }
 
 html,
 body {
+    width: 100%;
+    min-width: 0;
     height: 100%;
+}
+
+html {
+    background: var(--color-background);
 }
 
 body {
     display: flex;
     flex-direction: column;
+    min-height: 100dvh;
     margin: 0;
-}
-
-header,
-main {
-    background-color: var(--color-background);
+    overflow: hidden;
+    background: var(--color-background);
     color: var(--color-on-background);
-    display: grid;
-    grid-template-columns: minmax(16rem, 1fr) minmax(16rem, 2fr) minmax(16em, 1fr);
-    column-gap: 2rem;
 }
 
 header {
+    position: relative;
+    z-index: 100;
+    flex: 0 0 var(--header-height);
+    min-height: var(--header-height);
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    height: 4rem;
-    padding-inline: 2rem;
-    background-color: var(--color-primary);
-    color: var(--color-on-primary);
-    z-index: 99;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: stretch;
+    padding: 0 1.75rem;
+    background: #43217a;
+    color: #fff;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
 }
+
+header.dark {
+    background: #43217a;
+}
+
 header .logo {
-    justify-self: end;
-    align-self: center;
     display: flex;
-    align-items: flex-end;
-    gap: 1rem;
+    align-items: baseline;
+    align-self: center;
+    gap: 0.8rem;
+    white-space: nowrap;
 }
-header .nav {
-    flex: 1;
+
+header .logo h2 {
+    font-size: 2rem;
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+header .logo p {
+    align-self: baseline;
+    font-size: 0.84rem;
+    line-height: 1;
+    font-weight: 700;
+    opacity: 0.95;
 }
 
 main {
-    height: 0;
-    flex: 1;
-    display: grid;
-    grid-template-rows: minmax(0, 1fr);
-    column-gap: 2rem;
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    background: var(--color-background);
+    color: var(--color-on-background);
 }
-main > div {
-    overflow-y: auto;
+
+button,
+a,
+input,
+select,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button,
+a {
+    outline-offset: 3px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid color-mix(in srgb, #a981ff 70%, transparent);
+    outline-offset: 2px;
 }
 
 .spinner {
     display: flex;
     align-items: center;
     justify-content: center;
-    grid-column: span 3;
+    width: 100%;
+    height: 100%;
 }
 
 input[type="checkbox"] {
-    height: 1.25rem;
-    width: 1.25rem;
-    cursor: pointer;
+    appearance: none;
+    width: 1.15rem;
+    height: 1.15rem;
+    min-width: 1.15rem;
     margin: 0;
+    border: 1px solid var(--color-border-strong);
+    border-radius: 0.25rem;
+    background: var(--color-surface-strong);
+    cursor: pointer;
+    display: inline-grid;
+    place-content: center;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.55rem;
+    height: 0.55rem;
+    transform: scale(0);
+    transition: transform 120ms ease;
+    border-radius: 0.12rem;
+    background: var(--color-on-primary);
+}
+
+input[type="checkbox"]:checked {
+    border-color: var(--color-primary-hover);
+    background: var(--color-primary-hover);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
+.hide-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-on-background) 30%, transparent) transparent;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    width: 0.45rem;
+    height: 0.45rem;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-on-background) 28%, transparent);
+    border-radius: 999px;
+}
+
+@media (max-width: 860px) {
+    :root {
+        --header-height: 7.5rem;
+    }
+
+    body {
+        overflow: auto;
+    }
+
+    header {
+        position: sticky;
+        top: 0;
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: var(--header-height);
+        padding: 0.75rem 1rem 0;
+    }
+
+    header .logo {
+        justify-content: center;
+        height: 2.5rem;
+    }
+
+    header .logo h2 {
+        font-size: 1.5rem;
+    }
+
+    main {
+        min-height: calc(100dvh - var(--header-height));
+    }
 }

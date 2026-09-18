@@ -63,7 +63,7 @@ export default {
                 <div class="level" v-if="level">
                     <h1>{{ level.name }}</h1>
                     <LevelAuthors :author="level.author" :creators="level.creators" :verifier="level.verifier"></LevelAuthors>
-                    <iframe class="video" id="videoframe" :src="video" frameborder="0"></iframe>
+                    <iframe class="video" id="videoframe" :src="video" title="Verification video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <ul class="stats">
                         <li>
                             <div class="type-title-sm">Points when completed</div>
@@ -94,7 +94,7 @@ export default {
                                 <p v-else>{{ record.time }}</p>
                             </td>
                             <td class="user">
-                                <a :href="record.link" target="_blank" class="type-label-lg">{{ record.user }}</a>
+                                <a v-if="record.link" :href="record.link" target="_blank" rel="noopener" class="type-label-lg">{{ record.user }}</a><span v-else class="type-label-lg">{{ record.user }}</span>
                             </td>
                             <td class="mobile">
                                 <img v-if="record.mobile" :src="\`./assets/phone-landscape\${store.dark ? '-dark' : ''}.svg\`" alt="Mobile">
@@ -136,7 +136,7 @@ export default {
                             Blindfolded Leaderboards Spreadsheet
                         </h3>
                         <p>
-                            <a href="https://docs.google.com/spreadsheets/d/1kGK6w2plz3wknw7Uz6ifaE3hjZa0NaRnGEiia8tulDU/edit?usp=sharing/" target="_blank" style="color: #b486ff;; text-decoration: underline;">Click here to view the spreadsheet.</a> 
+                            <a href="https://docs.google.com/spreadsheets/d/1kGK6w2plz3wknw7Uz6ifaE3hjZa0NaRnGEiia8tulDU/edit?usp=sharing/" target="_blank" rel="noopener" class="meta-link">Click here to view the spreadsheet.</a> 
                         </p>
                     </div> 
                 </div> 

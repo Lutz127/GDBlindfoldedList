@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=1024" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta
             http-equiv="Content-Security-Policy"
             content="default-src 'self'; script-src 'self' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: data:; frame-src https://www.youtube.com https://youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://*.workers.dev; base-uri 'self'; form-action 'self'; object-src 'none'"
@@ -57,6 +57,7 @@
                 <div class="nav__actions">
                     <button
                         class="nav__icon"
+                        aria-label="Toggle light or dark theme"
                         @click.prevent="store.toggleDark()"
                     >
                         <img
@@ -65,7 +66,7 @@
                         />
                     </button>
                     <!-- Replace the '#' with your discord server's invite-->
-                    <a class="nav__icon" href="https://discord.gg/kSwJMA5kZr">
+                    <a class="nav__icon" href="https://discord.gg/kSwJMA5kZr" target="_blank" rel="noopener" aria-label="Open Discord server">
                         <img src="./assets/discord.svg" alt="Discord Logo" />
                     </a>
                     <!-- List record submission form, add a link to replace the '#' when putting a link to your list submission form-->
@@ -73,6 +74,7 @@
                         class="nav__cta type-label-lg"
                         href="https://docs.google.com/forms/d/e/1FAIpQLSfnNxf_lojS9jpukp2zkupfevpLW9l89ohINNniyEq276sezg/viewform?usp=publish-editor"
                         target="_blank"
+                        rel="noopener"
                         >Submit Record</a
                     >
                 </div>

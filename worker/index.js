@@ -8,8 +8,10 @@ export default {
             return await route(request, env);
         } catch (error) {
             console.error(error);
-            const status = Number.isInteger(error?.status) ? error.status : 500;
-            const message = status >= 500 ? 'Server error. Please try again.' : (error?.message || 'Request failed.');
+            const status = error instanceof HttpError ? error.status : 500;
+            const message = status >= 500
+                ? 'Server error. Please try again.'
+                : (error instanceof Error ? error.message : 'Request failed.');
             return json(request, env, { error: message }, status, { noStore: true });
         }
     },
@@ -627,8 +629,14 @@ async function sha256Hex(value) {
     return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, '0')).join('');
 }
 
+class HttpError extends Error {
+    constructor(status, message) {
+        super(message);
+        this.name = 'HttpError';
+        this.status = status;
+    }
+}
+
 function httpError(status, message) {
-    const error = new Error(message);
-    error.status = status;
-    return error;
+    return new HttpError(status, message);
 }

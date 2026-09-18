@@ -1,5 +1,5 @@
 import { store } from "../main.js";
-import { isApiConfigured } from "../config.js";
+import { APP_CONFIG, isApiConfigured } from "../config.js";
 import {
     fetchLiveList,
     getAuthResult,
@@ -53,22 +53,13 @@ export default {
                 </p>
             </section>
 
-            <section v-else-if="state === 'signed-out'" class="admin-center admin-card admin-auth-card">
+            <section v-else-if="state === 'signed-out'" class="admin-center admin-card">
                 <h1>Moderator panel</h1>
-
                 <p class="admin-auth-copy">
                     Sign in with Discord. Access is granted only if your account currently has one of the configured moderator roles in the Blindfolded List server.
                 </p>
-
                 <span class="admin-status error" v-if="message">{{ message }}</span>
-
-                <button
-                    class="admin-primary admin-login-button"
-                    @click="login"
-                    :disabled="busy"
-                >
-                    Sign in with Discord
-                </button>
+                <button class="admin-primary admin-login-button" @click="login" :disabled="busy">Sign in with Discord</button>
             </section>
 
             <section v-else-if="state === 'unauthorized'" class="admin-center admin-card">
@@ -83,11 +74,18 @@ export default {
             <section v-else class="admin-shell">
                 <aside class="admin-sidebar">
                     <div class="admin-sidebar-header">
-                        <div>
-                            <h1>Moderator panel</h1>
-                            <p class="admin-muted">Signed in as {{ identityLabel }}</p>
+                        <div class="admin-sidebar-title-row">
+                            <div>
+                                <h1>Moderator panel</h1>
+                                <p class="admin-identity">Signed in as <strong>{{ identityLabel }}</strong></p>
+                            </div>
+                            <button class="admin-secondary admin-small" @click="logout" :disabled="busy">Sign out</button>
                         </div>
-                        <button class="admin-secondary admin-small" @click="logout" :disabled="busy">Sign out</button>
+
+                        <div class="admin-tools">
+                            <a class="admin-link-button admin-small" :href="submissionReviewUrl" target="_blank" rel="noopener">Review submissions ↗</a>
+                            <a class="admin-link-button admin-small" :href="submissionFormUrl" target="_blank" rel="noopener">Open public form ↗</a>
+                        </div>
                     </div>
 
                     <div class="admin-tabs">
@@ -97,7 +95,7 @@ export default {
 
                     <button class="admin-primary admin-new" @click="newLevel">+ Add level</button>
 
-                    <div class="admin-level-list">
+                    <div class="admin-level-list hide-scrollbar">
                         <div
                             v-for="(level, index) in levelsForTab"
                             :key="level.databaseId"
@@ -109,146 +107,148 @@ export default {
                                 <span>{{ level.name }}</span>
                             </button>
                             <div class="admin-order-buttons">
-                                <button title="Move up" @click="moveLevel(index, -1)" :disabled="busy || index === 0">▲</button>
-                                <button title="Move down" @click="moveLevel(index, 1)" :disabled="busy || index === levelsForTab.length - 1">▼</button>
+                                <button title="Move up" aria-label="Move level up" @click="moveLevel(index, -1)" :disabled="busy || index === 0">▲</button>
+                                <button title="Move down" aria-label="Move level down" @click="moveLevel(index, 1)" :disabled="busy || index === levelsForTab.length - 1">▼</button>
                             </div>
                         </div>
                     </div>
                 </aside>
 
-                <section class="admin-editor" v-if="draftLevel">
-                    <div class="admin-editor-heading">
-                        <div>
-                            <h2>{{ draftLevel.databaseId ? 'Edit level' : 'Add level' }}</h2>
-                            <p class="admin-muted" v-if="draftLevel.databaseId">Rank #{{ draftLevel.rank }} · changes go live immediately after saving.</p>
-                        </div>
-                        <span class="admin-status" v-if="message" :class="{ error: messageIsError }">{{ message }}</span>
-                    </div>
-
-                    <form class="admin-form" @submit.prevent="saveLevel">
-                        <label>
-                            <span>Geometry Dash level ID</span>
-                            <input v-model.trim="draftLevel.id" type="number" min="1" step="1" required />
-                        </label>
-
-                        <label>
-                            <span>Display name</span>
-                            <input v-model.trim="draftLevel.name" maxlength="120" required />
-                        </label>
-
-                        <label>
-                            <span>Publisher / author</span>
-                            <input v-model.trim="draftLevel.author" maxlength="120" required />
-                        </label>
-
-                        <label>
-                            <span>Creators <small>(comma separated)</small></span>
-                            <input v-model="creatorsText" maxlength="600" placeholder="RobTop, AnotherCreator" required />
-                        </label>
-
-                        <label>
-                            <span>Verifier</span>
-                            <input v-model.trim="draftLevel.verifier" maxlength="120" required />
-                        </label>
-
-                        <label class="admin-wide">
-                            <span>Verification video URL</span>
-                            <input v-model.trim="draftLevel.verification" type="url" maxlength="500" placeholder="https://youtube.com/watch?v=..." required />
-                        </label>
-
-                        <label>
-                            <span>Difficulty</span>
-                            <input v-model.trim="draftLevel.difficulty" list="difficulty-options" maxlength="50" required />
-                            <datalist id="difficulty-options">
-                                <option value="Auto"></option>
-                                <option value="Easy"></option>
-                                <option value="Normal"></option>
-                                <option value="Hard"></option>
-                                <option value="Harder"></option>
-                                <option value="Insane"></option>
-                                <option value="Easy Demon"></option>
-                                <option value="Medium Demon"></option>
-                                <option value="Hard Demon"></option>
-                                <option value="Insane Demon"></option>
-                                <option value="Extreme Demon"></option>
-                            </datalist>
-                        </label>
-
-                        <label>
-                            <span>Type</span>
-                            <select v-model="draftLevel.platformer" :disabled="draftLevel.records.length > 0">
-                                <option :value="false">Classic</option>
-                                <option :value="true">Platformer</option>
-                            </select>
-                            <small v-if="draftLevel.records.length > 0" class="admin-muted">Delete this level's records first to change type.</small>
-                        </label>
-
-                        <label v-if="!draftLevel.platformer">
-                            <span>Minimum % to qualify</span>
-                            <input v-model.number="draftLevel.percentToQualify" type="number" min="1" max="100" required />
-                        </label>
-
-                        <div class="admin-form-actions admin-wide">
-                            <button type="submit" class="admin-primary" :disabled="busy">{{ busy ? 'Saving…' : 'Save level' }}</button>
-                            <button v-if="draftLevel.databaseId" type="button" class="admin-danger" @click="deleteLevel" :disabled="busy">Delete level</button>
-                        </div>
-                    </form>
-
-                    <div class="admin-records" v-if="draftLevel.databaseId">
-                        <div class="admin-section-heading">
+                <section class="admin-editor hide-scrollbar" v-if="draftLevel">
+                    <div class="admin-editor-inner">
+                        <div class="admin-editor-heading">
                             <div>
-                                <h2>Records</h2>
-                                <p class="admin-muted">{{ draftLevel.platformer ? 'Platformer records sort by fastest time.' : 'Classic records sort by highest percentage.' }}</p>
+                                <h2>{{ draftLevel.databaseId ? 'Edit level' : 'Add level' }}</h2>
+                                <p class="admin-editor-subtitle" v-if="draftLevel.databaseId">Rank #{{ draftLevel.rank }} · changes go live immediately after saving.</p>
                             </div>
-                            <button class="admin-primary admin-small" @click="startRecord">+ Add record</button>
+                            <span class="admin-status" v-if="message" :class="{ error: messageIsError }">{{ message }}</span>
                         </div>
 
-                        <div class="admin-record-table" v-if="draftLevel.records.length">
-                            <div class="admin-record-row admin-record-head">
-                                <span>Player</span>
-                                <span>{{ draftLevel.platformer ? 'Time' : 'Progress' }}</span>
-                                <span>Video</span>
-                                <span></span>
-                            </div>
-                            <div class="admin-record-row" v-for="record in draftLevel.records" :key="record.recordId">
-                                <span>{{ record.user }}</span>
-                                <span>{{ draftLevel.platformer ? record.time : record.percent + '%' }}</span>
-                                <span><a v-if="record.link" :href="record.link" target="_blank">Open</a><span v-else>—</span></span>
-                                <span class="admin-record-actions">
-                                    <button class="admin-secondary admin-small" @click="editRecord(record)">Edit</button>
-                                    <button class="admin-danger-outline admin-small" @click="deleteRecord(record)">Delete</button>
-                                </span>
-                            </div>
-                        </div>
-                        <p v-else class="admin-empty">No records yet.</p>
-
-                        <form v-if="draftRecord" class="admin-record-editor" @submit.prevent="saveRecord">
-                            <h3>{{ draftRecord.recordId ? 'Edit record' : 'Add record' }}</h3>
+                        <form class="admin-form" @submit.prevent="saveLevel">
                             <label>
-                                <span>Player</span>
-                                <input v-model.trim="draftRecord.user" maxlength="120" required />
+                                <span>Geometry Dash level ID</span>
+                                <input v-model.trim="draftLevel.id" type="number" min="1" step="1" required />
                             </label>
-                            <label v-if="!draftLevel.platformer">
-                                <span>Percent</span>
-                                <input v-model.number="draftRecord.percent" type="number" min="1" max="100" required />
+
+                            <label>
+                                <span>Display name</span>
+                                <input v-model.trim="draftLevel.name" maxlength="120" required />
                             </label>
-                            <label v-else>
-                                <span>Time</span>
-                                <input v-model.trim="draftRecord.time" placeholder="2:36:48.871 or 9:36.637" maxlength="30" required />
+
+                            <label>
+                                <span>Publisher / author</span>
+                                <input v-model.trim="draftLevel.author" maxlength="120" required />
                             </label>
+
+                            <label>
+                                <span>Creators <small>(comma separated)</small></span>
+                                <input v-model="creatorsText" maxlength="600" placeholder="RobTop, AnotherCreator" required />
+                            </label>
+
+                            <label>
+                                <span>Verifier</span>
+                                <input v-model.trim="draftLevel.verifier" maxlength="120" required />
+                            </label>
+
                             <label class="admin-wide">
-                                <span>Video / proof URL <small>(optional)</small></span>
-                                <input v-model.trim="draftRecord.link" type="url" maxlength="500" placeholder="https://..." />
+                                <span>Verification video URL</span>
+                                <input v-model.trim="draftLevel.verification" type="url" maxlength="500" placeholder="https://youtube.com/watch?v=..." required />
                             </label>
-                            <label class="admin-check">
-                                <input v-model="draftRecord.mobile" type="checkbox" />
-                                <span>Mobile record</span>
+
+                            <label>
+                                <span>Difficulty</span>
+                                <input v-model.trim="draftLevel.difficulty" list="difficulty-options" maxlength="50" required />
+                                <datalist id="difficulty-options">
+                                    <option value="Auto"></option>
+                                    <option value="Easy"></option>
+                                    <option value="Normal"></option>
+                                    <option value="Hard"></option>
+                                    <option value="Harder"></option>
+                                    <option value="Insane"></option>
+                                    <option value="Easy Demon"></option>
+                                    <option value="Medium Demon"></option>
+                                    <option value="Hard Demon"></option>
+                                    <option value="Insane Demon"></option>
+                                    <option value="Extreme Demon"></option>
+                                </datalist>
                             </label>
+
+                            <label>
+                                <span>Type</span>
+                                <select v-model="draftLevel.platformer" :disabled="draftLevel.records.length > 0">
+                                    <option :value="false">Classic</option>
+                                    <option :value="true">Platformer</option>
+                                </select>
+                                <small v-if="draftLevel.records.length > 0">Delete this level's records first to change type.</small>
+                            </label>
+
+                            <label v-if="!draftLevel.platformer">
+                                <span>Minimum % to qualify</span>
+                                <input v-model.number="draftLevel.percentToQualify" type="number" min="1" max="100" required />
+                            </label>
+
                             <div class="admin-form-actions admin-wide">
-                                <button class="admin-primary" type="submit" :disabled="busy">{{ busy ? 'Saving…' : 'Save record' }}</button>
-                                <button class="admin-secondary" type="button" @click="draftRecord = null" :disabled="busy">Cancel</button>
+                                <button type="submit" class="admin-primary" :disabled="busy">{{ busy ? 'Saving…' : 'Save level' }}</button>
+                                <button v-if="draftLevel.databaseId" type="button" class="admin-danger" @click="deleteLevel" :disabled="busy">Delete level</button>
                             </div>
                         </form>
+
+                        <div class="admin-records" v-if="draftLevel.databaseId">
+                            <div class="admin-section-heading">
+                                <div>
+                                    <h2>Records</h2>
+                                    <p class="admin-muted">{{ draftLevel.platformer ? 'Platformer records sort by fastest time.' : 'Classic records sort by highest percentage.' }}</p>
+                                </div>
+                                <button class="admin-primary admin-small" @click="startRecord">+ Add record</button>
+                            </div>
+
+                            <div class="admin-record-table" v-if="draftLevel.records.length">
+                                <div class="admin-record-row admin-record-head">
+                                    <span>Player</span>
+                                    <span>{{ draftLevel.platformer ? 'Time' : 'Progress' }}</span>
+                                    <span>Video</span>
+                                    <span></span>
+                                </div>
+                                <div class="admin-record-row" v-for="record in draftLevel.records" :key="record.recordId">
+                                    <span>{{ record.user }}</span>
+                                    <span>{{ draftLevel.platformer ? record.time : record.percent + '%' }}</span>
+                                    <span><a v-if="record.link" :href="record.link" target="_blank" rel="noopener">Open</a><span v-else>—</span></span>
+                                    <span class="admin-record-actions">
+                                        <button class="admin-secondary admin-small" @click="editRecord(record)">Edit</button>
+                                        <button class="admin-danger-outline admin-small" @click="deleteRecord(record)">Delete</button>
+                                    </span>
+                                </div>
+                            </div>
+                            <p v-else class="admin-empty">No records yet.</p>
+
+                            <form v-if="draftRecord" class="admin-record-editor" @submit.prevent="saveRecord">
+                                <h3>{{ draftRecord.recordId ? 'Edit record' : 'Add record' }}</h3>
+                                <label>
+                                    <span>Player</span>
+                                    <input v-model.trim="draftRecord.user" maxlength="120" required />
+                                </label>
+                                <label v-if="!draftLevel.platformer">
+                                    <span>Percent</span>
+                                    <input v-model.number="draftRecord.percent" type="number" min="1" max="100" required />
+                                </label>
+                                <label v-else>
+                                    <span>Time</span>
+                                    <input v-model.trim="draftRecord.time" placeholder="2:36:48.871 or 9:36.637" maxlength="30" required />
+                                </label>
+                                <label class="admin-wide">
+                                    <span>Video / proof URL <small>(optional)</small></span>
+                                    <input v-model.trim="draftRecord.link" type="url" maxlength="500" placeholder="https://..." />
+                                </label>
+                                <label class="admin-check">
+                                    <input v-model="draftRecord.mobile" type="checkbox" />
+                                    <span>Mobile record</span>
+                                </label>
+                                <div class="admin-form-actions admin-wide">
+                                    <button class="admin-primary" type="submit" :disabled="busy">{{ busy ? 'Saving…' : 'Save record' }}</button>
+                                    <button class="admin-secondary" type="button" @click="draftRecord = null" :disabled="busy">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </section>
 
@@ -262,6 +262,8 @@ export default {
 
     data: () => ({
         store,
+        submissionFormUrl: APP_CONFIG.submissionFormUrl,
+        submissionReviewUrl: APP_CONFIG.submissionReviewUrl,
         state: "loading",
         busy: false,
         tab: "classic",

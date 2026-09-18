@@ -1,30 +1,50 @@
-.tabs {
+.tabs,
+.list-tabs {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.7rem;
 }
 
-.tabs .tab{
-    border: none;
+.tabs .tab,
+.list-tab {
+    position: relative;
+    border: 0;
     cursor: pointer;
-    font: inherit;
-    padding: 1rem;
+    padding: 0.8rem 0.4rem 0.72rem;
     margin: 0;
-    background-color: transparent;
+    background: transparent;
     color: var(--color-on-background);
-    border-bottom: 3px solid transparent;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    opacity: 0.82;
+    transition: opacity 120ms ease;
 }
 
-.tabs .tab:first-child {
-    border-top-left-radius: 0.5rem;
+.tabs .tab::after,
+.list-tab::after {
+    content: "";
+    position: absolute;
+    left: 0.2rem;
+    right: 0.2rem;
+    bottom: 0;
+    height: 3px;
+    border-radius: 999px;
+    background: transparent;
+    transition: background-color 120ms ease;
 }
 
-.tabs .tab:last-child {
-    border-top-right-radius: 0.5rem;
+.tabs .tab:hover,
+.list-tab:hover,
+.tabs .tab.selected,
+.list-tab.selected {
+    opacity: 1;
 }
 
-.tabs .tab.selected{
-    border-bottom: 3px solid var(--color-on-background);
-}
-
-.tabs .tab:hover{
-    background-color: var(--color-background-hover);
+.tabs .tab:hover::after,
+.list-tab:hover::after,
+.tabs .tab.selected::after,
+.list-tab.selected::after {
+    background: currentColor;
 }

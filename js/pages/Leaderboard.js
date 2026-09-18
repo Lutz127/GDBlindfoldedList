@@ -53,7 +53,7 @@ export default {
                 <div class="player-container">
                     <div class="player">
                         <h1>#{{ selected + 1 }} {{ entry.user }}</h1>
-                        <h3><h3>{{ Math.round(entry.total) }}</h3></h3>
+                        <p class="leaderboard-total">{{ Math.round(entry.total) }} points</p>
                         <h2 v-if="entry.verified.length > 0">Verified ({{ entry.verified.length}})</h2>
                         <!-- ALL TAB -->
                         <template v-if="isAllTab">
