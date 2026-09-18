@@ -2,11 +2,13 @@
     "id": 77237540,
     "name": "⭐ Base After Base",
     "author": "RobTop",
-    "creators": ["RobTop"],
+    "creators": [
+        "RobTop"
+    ],
     "verifier": "598",
     "verification": "https://youtu.be/rERIfKSRfi8",
     "percentToQualify": 100,
-    "password": "Hard",
+    "difficulty": "Hard",
     "records": [
         {
             "user": "598",

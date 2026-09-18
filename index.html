@@ -3,6 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=1024" />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'self'; script-src 'self' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https: data:; frame-src https://www.youtube.com https://youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://*.workers.dev; base-uri 'self'; form-action 'self'; object-src 'none'"
+        />
         <title>Blindfolded List</title>
 
         <!-- Replace your server icon by uploading an image file named "list_icon.png"-->
@@ -22,6 +26,7 @@
             type="text/css"
             href="./css/pages/leaderboard.css"
         />
+        <link rel="stylesheet" type="text/css" href="./css/pages/admin.css" />
         <link rel="stylesheet" type="text/css" href="./css/components/nav.css" />
         <link rel="stylesheet" type="text/css" href="./css/components/btn.css" />
         <link
@@ -37,7 +42,7 @@
         <header :class="{ dark: store.dark }">
             <div class="logo">
                 <h2>Blindfolded List</h2>
-                <p>v1.0.1</p>
+                <p>v2.0.0</p>
             </div>
             <nav class="nav">
                 <router-link class="nav__tab" to="/">
@@ -45,6 +50,9 @@
                 </router-link>
                 <router-link class="nav__tab" to="/leaderboard">
                     <span class="type-label-lg">Leaderboard</span>
+                </router-link>
+                <router-link class="nav__tab" to="/admin">
+                    <span class="type-label-lg">Mod Panel</span>
                 </router-link>
                 <div class="nav__actions">
                     <button

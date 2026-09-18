@@ -1,0 +1,426 @@
+.page-admin {
+    display: block;
+    height: 0;
+    flex: 1;
+    overflow: auto;
+    background: var(--color-background);
+    color: var(--color-on-background);
+}
+
+.page-admin code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: var(--color-background-hover);
+    border-radius: 0.35rem;
+    padding: 0.1rem 0.35rem;
+}
+
+.admin-center {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    text-align: center;
+}
+
+.admin-card {
+    width: min(42rem, calc(100% - 4rem));
+    margin: auto;
+}
+
+.admin-card p {
+    max-width: 38rem;
+    line-height: 1.6;
+}
+
+/* Signed-out moderator login */
+.admin-auth-card {
+    gap: 0;
+}
+
+.admin-auth-card h1 {
+    margin: 0 0 1.15rem;
+    font-size: clamp(2.25rem, 4vw, 3rem);
+    line-height: 1.05;
+}
+
+.admin-auth-copy {
+    max-width: 37rem !important;
+    margin: 0 0 1.65rem;
+    line-height: 1.7 !important;
+    font-size: 1rem;
+}
+
+.admin-auth-card .admin-status {
+    margin: 0 0 1.15rem;
+}
+
+.admin-login-button {
+    min-width: 11rem;
+    padding: 0.85rem 1.2rem;
+}
+
+.admin-shell {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: minmax(18rem, 26rem) minmax(36rem, 1fr);
+}
+
+.admin-sidebar {
+    border-right: 1px solid color-mix(in srgb, var(--color-on-background) 15%, transparent);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: color-mix(in srgb, var(--color-background) 96%, var(--color-primary));
+}
+
+.admin-sidebar-header,
+.admin-editor-heading,
+.admin-section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.admin-sidebar-header {
+    padding: 1.25rem;
+}
+
+.admin-sidebar-header h1,
+.admin-editor h2,
+.admin-records h2 {
+    margin: 0;
+}
+
+.admin-muted {
+    opacity: 0.65;
+    font-size: 0.85rem;
+    line-height: 1.35;
+}
+
+.admin-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0 1.25rem 1rem;
+    gap: 0.5rem;
+}
+
+.admin-tabs button,
+.admin-secondary,
+.admin-danger-outline,
+.admin-order-buttons button {
+    border: 1px solid color-mix(in srgb, var(--color-on-background) 25%, transparent);
+    background: transparent;
+    color: inherit;
+    border-radius: 0.45rem;
+    cursor: pointer;
+}
+
+.admin-tabs button {
+    padding: 0.7rem;
+    font-weight: 700;
+}
+
+.admin-tabs button.active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.admin-primary,
+.admin-danger {
+    border: 0;
+    border-radius: 0.45rem;
+    padding: 0.75rem 1rem;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.admin-primary {
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+}
+
+.admin-danger {
+    background: var(--color-error);
+    color: var(--color-on-error);
+}
+
+.admin-secondary,
+.admin-danger-outline {
+    padding: 0.7rem 0.9rem;
+    font: inherit;
+}
+
+.admin-danger-outline {
+    color: var(--color-error);
+    border-color: color-mix(in srgb, var(--color-error) 55%, transparent);
+}
+
+.admin-primary:disabled,
+.admin-danger:disabled,
+.admin-secondary:disabled,
+.admin-danger-outline:disabled,
+.admin-order-buttons button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.admin-small {
+    padding: 0.45rem 0.65rem;
+    font-size: 0.82rem;
+}
+
+.admin-new {
+    margin: 0 1.25rem 1rem;
+}
+
+.admin-level-list {
+    overflow-y: auto;
+    min-height: 0;
+    flex: 1;
+    padding-bottom: 1rem;
+}
+
+.admin-level-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: stretch;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-background) 10%, transparent);
+}
+
+.admin-level-row:last-child {
+    border-bottom: 1px solid color-mix(in srgb, var(--color-on-background) 10%, transparent);
+}
+
+.admin-level-row.selected {
+    background: var(--color-background-hover);
+}
+
+.admin-level-select {
+    display: grid;
+    grid-template-columns: 3.25rem minmax(0, 1fr);
+    align-items: center;
+    gap: 0.5rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    padding: 0.85rem 0.75rem 0.85rem 1.25rem;
+    font: inherit;
+}
+
+.admin-level-select span:last-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-rank {
+    opacity: 0.55;
+    font-weight: 700;
+}
+
+.admin-order-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding-right: 0.65rem;
+}
+
+.admin-order-buttons button {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+}
+
+.admin-editor {
+    padding: 2rem;
+    overflow: auto;
+}
+
+.admin-editor-heading {
+    margin-bottom: 1.5rem;
+}
+
+.admin-status {
+    max-width: 28rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.45rem;
+    background: color-mix(in srgb, #2f9e44 18%, transparent);
+    color: inherit;
+    font-size: 0.9rem;
+}
+
+.admin-status.error {
+    background: color-mix(in srgb, var(--color-error) 18%, transparent);
+}
+
+.admin-form,
+.admin-record-editor {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.25rem;
+}
+
+.admin-form label,
+.admin-record-editor label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-weight: 700;
+}
+
+.admin-form label small,
+.admin-record-editor label small {
+    font-weight: 500;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-record-editor input,
+.admin-record-editor select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--color-on-background) 25%, transparent);
+    border-radius: 0.45rem;
+    background: var(--color-background);
+    color: var(--color-on-background);
+    font: inherit;
+}
+
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-record-editor input:focus,
+.admin-record-editor select:focus {
+    outline: 2px solid color-mix(in srgb, var(--color-primary) 65%, white);
+    outline-offset: 1px;
+}
+
+.admin-wide {
+    grid-column: 1 / -1;
+}
+
+.admin-check {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    gap: 0.65rem !important;
+}
+
+.admin-form-actions,
+.admin-actions-row {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.admin-records {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-background) 15%, transparent);
+}
+
+.admin-record-table {
+    margin-top: 1rem;
+    border: 1px solid color-mix(in srgb, var(--color-on-background) 15%, transparent);
+    border-radius: 0.6rem;
+    overflow: hidden;
+}
+
+.admin-record-row {
+    display: grid;
+    grid-template-columns: minmax(8rem, 1fr) 8rem 6rem minmax(9rem, auto);
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.75rem 0.9rem;
+    border-top: 1px solid color-mix(in srgb, var(--color-on-background) 10%, transparent);
+}
+
+.admin-record-row:first-child {
+    border-top: 0;
+}
+
+.admin-record-head {
+    font-weight: 700;
+    background: var(--color-background-hover);
+}
+
+.admin-record-actions {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: flex-end;
+}
+
+.admin-record-editor {
+    margin-top: 1.25rem;
+    padding: 1.25rem;
+    border-radius: 0.6rem;
+    background: var(--color-background-hover);
+}
+
+.admin-record-editor h3 {
+    grid-column: 1 / -1;
+    margin: 0 0 0.25rem;
+}
+
+.admin-empty,
+.admin-empty-editor {
+    opacity: 0.7;
+}
+
+.admin-empty-editor {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    .admin-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid color-mix(in srgb, var(--color-on-background) 15%, transparent);
+        max-height: 46vh;
+    }
+
+    .admin-form,
+    .admin-record-editor {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-wide {
+        grid-column: auto;
+    }
+
+    .admin-record-row {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-record-head {
+        display: none;
+    }
+
+    .admin-record-actions {
+        justify-content: flex-start;
+    }
+
+    .admin-auth-card h1 {
+        font-size: 2.15rem;
+    }
+
+    .admin-auth-copy {
+        max-width: 31rem !important;
+    }
+}

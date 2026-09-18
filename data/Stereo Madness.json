@@ -2,11 +2,13 @@
     "id": 77236587,
     "name": "⭐ Stereo Madness",
     "author": "RobTop",
-    "creators": ["RobTop"],
+    "creators": [
+        "RobTop"
+    ],
     "verifier": "FroggiBoy",
     "verification": "https://www.youtube.com/watch?v=3QnqTsezBW8",
     "percentToQualify": 10,
-    "password": "Easy",
+    "difficulty": "Easy",
     "records": [
         {
             "user": "FroggiBoy",

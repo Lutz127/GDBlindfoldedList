@@ -2,11 +2,13 @@
     "id": 93733469,
     "name": "⭐ Tidal Wave",
     "author": "sink",
-    "creators": ["sink"],
+    "creators": [
+        "sink"
+    ],
     "verifier": "Abuigsito",
     "verification": "https://youtu.be/Kj3CFu1kxl0",
     "percentToQualify": 100,
-    "password": "Easy",
+    "difficulty": "Easy",
     "records": [
         {
             "user": "Abuigsito",

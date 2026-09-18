@@ -2,11 +2,13 @@
     "id": 81391957,
     "name": "⭐ PXTTXRN SXXKXR",
     "author": "Viot",
-    "creators": ["Viot"],
+    "creators": [
+        "Viot"
+    ],
     "verifier": "zachhax",
     "verification": "https://youtu.be/10qeMHPakXI",
     "percentToQualify": 100,
-    "password": "Easy Demon",
+    "difficulty": "Easy Demon",
     "records": [
         {
             "user": "zachhax",

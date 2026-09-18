@@ -2,11 +2,13 @@
     "id": 13241784,
     "name": "⭐ dorabae-quiz",
     "author": "DORABAE",
-    "creators": ["DORABAE"],
+    "creators": [
+        "DORABAE"
+    ],
     "verifier": "Abuigsito",
     "verification": "https://youtu.be/_25OyN-PPcI",
     "percentToQualify": 100,
-    "password": "Easy",
+    "difficulty": "Easy",
     "records": [
         {
             "user": "Abuigsito",

@@ -2,11 +2,13 @@
     "id": 97459509,
     "name": "🌙 The Cellar",
     "author": "RobTop",
-    "creators": ["RobTop"],
+    "creators": [
+        "RobTop"
+    ],
     "verifier": "RaiinWing",
     "verification": "https://www.youtube.com/watch?v=myDqRGpHYr8",
     "platformer": true,
-    "password": "Harder",
+    "difficulty": "Harder",
     "records": [
         {
             "user": "RaiinWing",

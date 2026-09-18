@@ -2,11 +2,13 @@
     "id": 77241646,
     "name": "⭐ Payload",
     "author": "RobTop",
-    "creators": ["RobTop"],
+    "creators": [
+        "RobTop"
+    ],
     "verifier": "Lutz127",
     "verification": "https://youtu.be/xSYajTG7_MU",
     "percentToQualify": 100,
-    "password": "Easy",
+    "difficulty": "Easy",
     "records": [
         {
             "user": "Lutz127",

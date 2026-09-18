@@ -83,7 +83,7 @@ export default {
                         </li>
                         <li>
                             <div class="type-title-sm">Difficulty</div>
-                            <p>{{ level.password || 'Free to Copy' }}</p>
+                            <p>{{ level.difficulty || 'Unknown' }}</p>
                         </li>
                     </ul>
                     <h2>Records</h2>

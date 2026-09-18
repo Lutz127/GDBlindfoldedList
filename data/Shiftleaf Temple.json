@@ -2,11 +2,13 @@
     "id": 98079761,
     "name": "🌙 Shiftleaf Temple",
     "author": "trideapthbear",
-    "creators": ["trideapthbear"],
+    "creators": [
+        "trideapthbear"
+    ],
     "verifier": "Lutz127",
     "verification": "https://www.youtube.com/watch?v=9o4d01Mrt3Q",
     "platformer": true,
-    "password": "Easy Demon",
+    "difficulty": "Easy Demon",
     "records": [
         {
             "user": "Lutz127",

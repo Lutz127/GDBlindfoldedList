@@ -2,11 +2,13 @@
     "id": 77241651,
     "name": "⭐ Machina",
     "author": "RobTop",
-    "creators": ["RobTop"],
+    "creators": [
+        "RobTop"
+    ],
     "verifier": "Lutz127",
     "verification": "https://youtu.be/uAUOG7XzUbU",
     "percentToQualify": 100,
-    "password": "Normal",
+    "difficulty": "Normal",
     "records": [
         {
             "user": "Lutz127",

@@ -1,0 +1,22 @@
+name = "gd-blindfolded-list-api"
+main = "index.js"
+compatibility_date = "2026-09-18"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "gd-blindfolded-list"
+database_id = "PASTE_YOUR_D1_DATABASE_ID"
+
+[vars]
+SITE_URL = "https://lutz127.github.io/GDBlindfoldedList/"
+DISCORD_CLIENT_ID = "PASTE_DISCORD_APPLICATION_ID"
+DISCORD_GUILD_ID = "PASTE_DISCORD_SERVER_ID"
+DISCORD_MOD_ROLE_IDS = "PASTE_ROLE_ID_OR_COMMA_SEPARATED_ROLE_IDS"
+# Optional: owner/user IDs that may edit even without one of the roles above.
+DISCORD_ALLOWED_USER_IDS = ""
+# Optional local development origin(s), comma separated.
+EXTRA_ALLOWED_ORIGINS = ""
+
+# Add these with `wrangler secret put ...`, NEVER in this file:
+# DISCORD_CLIENT_SECRET
+# DISCORD_BOT_TOKEN

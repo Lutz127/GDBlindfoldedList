@@ -2,11 +2,13 @@
     "id": 77241647,
     "name": "⭐ Beast Mode",
     "author": "RobTop",
-    "creators": ["RobTop"],
+    "creators": [
+        "RobTop"
+    ],
     "verifier": "Lutz127",
     "verification": "https://youtu.be/ubeNaRTl8Do",
     "percentToQualify": 100,
-    "password": "Easy",
+    "difficulty": "Easy",
     "records": [
         {
             "user": "Lutz127",
